@@ -1,10 +1,12 @@
 package cs.ualberta.ca.neagu_feelsbook;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -29,7 +31,7 @@ public class MainActivity extends AppCompatActivity {
 
     private static final String FILENAME = "file.sav";
     private EditText counterText;
-    private ListView emotionListRepresentation;
+    private ListView emotionListView;
 
 
     ArrayList<CurrentMood> feelsList;
@@ -42,6 +44,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        final int gregIsAnnoyed = 0;
+
         // Declaring every item of activity_main.xml so I can interact with them.
         Button sadButton = (Button) findViewById(R.id.sadButton);
         Button happyButton = (Button) findViewById(R.id.happyButton);
@@ -50,8 +54,48 @@ public class MainActivity extends AppCompatActivity {
         Button angerButton = (Button) findViewById(R.id.angryButton);
         Button loveButton = (Button) findViewById(R.id.loveButton);
         final TextView counterText = (TextView) findViewById(R.id.count);
-        emotionListRepresentation = (ListView) findViewById(R.id.emotionListView);
+        emotionListView = (ListView) findViewById(R.id.emotionListView);
 
+
+        if (gregIsAnnoyed == 1){
+            feelsList.clear();
+            saveInFile();
+            adapter.notifyDataSetChanged();
+
+        }
+
+
+
+        Log.w("MAIN", "After On Create");
+
+        emotionListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+
+
+                String s = emotionListView.getItemAtPosition(i).toString();
+
+                CurrentMood x  = new CurrentMood();
+
+                x = feelsList.get(i);
+
+                Log.w("TRIAL THING", x.toString());
+
+                Log.w("MAIN", "After On Create");
+                Log.w("Main", s);
+
+
+                Intent intent = new Intent(MainActivity.this, MoodSelected.class);
+//                Intent intent = new Intent(v.getContext(), MyClass.class);
+                startActivity(intent);
+
+            }
+        });
+
+
+        // When the sad Button is clicked, tis listener adds a sadMood() object to the feelList,
+        // calls the saveInFile function to save the change to the file, and notifies the adapter that
+        // the list has changed.
         sadButton.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View v) {
@@ -59,14 +103,10 @@ public class MainActivity extends AppCompatActivity {
 
                 CurrentMood feel = new SadMood();
 
-//                Log.w("MAIN", "DDEEEEDEED");
-//                counterText.append(feel.toString());
-
-
                 feelsList.add(feel);
 
-//                saveInFile();
-//                adapter.notifyDataSetChanged();
+                saveInFile();
+                adapter.notifyDataSetChanged();
             }
         });
 
@@ -81,22 +121,9 @@ public class MainActivity extends AppCompatActivity {
         loadFromFile();
 
         adapter = new ArrayAdapter<CurrentMood>(this,
-                R.layout.activity_main, feelsList);
+                R.layout.list_item, feelsList);
 
-//        emotionListRepresentation = (ListView) findViewById(R.id.emotionListView);
-
-        emotionListRepresentation = (ListView) findViewById(R.id.emotionListView);
-
-        emotionListRepresentation.setAdapter(adapter);
-
-
-//        adapter = new ArrayAdapter<CurrentMood>(this,
-//                R.layout.list_item, feelsList);
-
-
-//        emotionListRepresentation.setAdapter(adapter);
-
-
+        emotionListView.setAdapter(adapter);
 
     }
 
@@ -120,15 +147,20 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-
-
     private void saveInFile() {
         try {
+
+            Log.w("MAIN", "In Save");
 
             FileOutputStream fos = openFileOutput(FILENAME,
                     Context.MODE_PRIVATE);
 
+            Log.w("MAIN", "Passed this");
+
             BufferedWriter out = new BufferedWriter(new OutputStreamWriter(fos));
+
+            Log.w("MAIN", "Next Done");
+
 
             Gson gson = new Gson();
             gson.toJson(feelsList, out);
