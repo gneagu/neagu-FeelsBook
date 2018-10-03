@@ -1,3 +1,10 @@
+/**
+ * MainActivity class runs the main application activity.
+ *
+ * @author: Gregory Neagu
+ * @since: 1.0
+ *
+ */
 package cs.ualberta.ca.neagu_feelsbook;
 
 import android.content.Context;
@@ -27,6 +34,9 @@ import java.io.OutputStreamWriter;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 
+/**
+ * Class that creates the main user interface.
+ */
 public class MainActivity extends AppCompatActivity {
 
     private static final String FILENAME = "file.sav";
@@ -67,7 +77,9 @@ public class MainActivity extends AppCompatActivity {
 
 
         Log.w("MAIN", "After On Create");
-
+        /*
+        Called when an item in the listView is clicked.
+         */
         emotionListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
@@ -79,19 +91,22 @@ public class MainActivity extends AppCompatActivity {
 
                 x = feelsList.get(i);
 
-                Log.w("TRIAL THING", x.toString());
+//                feelsList.remove(x);
+//                adapter.notifyDataSetChanged();
+//
 
-                Log.w("MAIN", "After On Create");
-                Log.w("Main", s);
 
+//                Log.w("TRIAL THING", x.toString());
+//
+//                Log.w("MAIN", "After On Create");
+//                Log.w("Main", "" + i);
 
                 Intent intent = new Intent(MainActivity.this, MoodSelected.class);
-//                Intent intent = new Intent(v.getContext(), MyClass.class);
+
                 startActivity(intent);
 
             }
         });
-
 
         // When the sad Button is clicked, tis listener adds a sadMood() object to the feelList,
         // calls the saveInFile function to save the change to the file, and notifies the adapter that
@@ -110,8 +125,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-
-
     }
 
     @Override
@@ -124,11 +137,9 @@ public class MainActivity extends AppCompatActivity {
                 R.layout.list_item, feelsList);
 
         emotionListView.setAdapter(adapter);
-
     }
 
     private void loadFromFile() {
-//    ArrayList<String> tweets = new ArrayList<String>();
         try {
             FileInputStream fis = openFileInput(FILENAME);
             BufferedReader in = new BufferedReader(new InputStreamReader(fis));
@@ -149,18 +160,10 @@ public class MainActivity extends AppCompatActivity {
 
     private void saveInFile() {
         try {
-
-            Log.w("MAIN", "In Save");
-
             FileOutputStream fos = openFileOutput(FILENAME,
                     Context.MODE_PRIVATE);
 
-            Log.w("MAIN", "Passed this");
-
             BufferedWriter out = new BufferedWriter(new OutputStreamWriter(fos));
-
-            Log.w("MAIN", "Next Done");
-
 
             Gson gson = new Gson();
             gson.toJson(feelsList, out);
@@ -176,6 +179,5 @@ public class MainActivity extends AppCompatActivity {
         }
 
     }
-
 
 }

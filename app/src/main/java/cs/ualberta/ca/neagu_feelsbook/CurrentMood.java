@@ -58,7 +58,7 @@ public class CurrentMood implements MoodInterface{
         String returnString = new String();
 
         returnString = this.getMood();
-        returnString += this.getMessage();
+        returnString += this.getMoodDate();
 
         return returnString;
     }
