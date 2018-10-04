@@ -39,6 +39,7 @@ import java.util.ArrayList;
  */
 public class MainActivity extends AppCompatActivity {
 
+    public static final String EXTRA_MESSAGE = "cs.ualberta.ca.neagu_feelsbook";
     private static final String FILENAME = "file.sav";
     private EditText counterText;
     private ListView emotionListView;
@@ -80,6 +81,7 @@ public class MainActivity extends AppCompatActivity {
         /*
         Called when an item in the listView is clicked.
          */
+
         emotionListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
@@ -95,18 +97,27 @@ public class MainActivity extends AppCompatActivity {
 //                adapter.notifyDataSetChanged();
 //
 
-
 //                Log.w("TRIAL THING", x.toString());
-//
+
 //                Log.w("MAIN", "After On Create");
 //                Log.w("Main", "" + i);
 
                 Intent intent = new Intent(MainActivity.this, MoodSelected.class);
 
+                intent.putExtra("DERP", "" + i);
+
                 startActivity(intent);
 
+//                intent.getExtras();
+
+
+//                String y = intent.getStringExtra(MainActivity.EXTRA_MESSAGE);
+
+//                Log.w("TRAIL HERE", y);
             }
         });
+
+
 
         // When the sad Button is clicked, tis listener adds a sadMood() object to the feelList,
         // calls the saveInFile function to save the change to the file, and notifies the adapter that
@@ -124,7 +135,6 @@ public class MainActivity extends AppCompatActivity {
                 adapter.notifyDataSetChanged();
             }
         });
-
     }
 
     @Override

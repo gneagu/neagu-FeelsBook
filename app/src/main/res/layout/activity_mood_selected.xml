@@ -6,4 +6,64 @@
     android:layout_height="match_parent"
     tools:context=".MoodSelected">
 
+    <Button
+        android:id="@+id/saveButton"
+        android:layout_width="120dp"
+        android:layout_height="65dp"
+        android:layout_marginStart="44dp"
+        android:layout_marginTop="412dp"
+        android:text="Save Emotion"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/deleteButton"
+        android:layout_width="120dp"
+        android:layout_height="65dp"
+        android:layout_marginEnd="44dp"
+        android:layout_marginTop="412dp"
+        android:text="Delete"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/dateView"
+        android:layout_width="280dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="76dp"
+        android:text="TextView"
+        android:textAlignment="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/messageBox"
+        android:layout_width="280dp"
+        android:layout_height="89dp"
+        android:layout_marginTop="48dp"
+        android:text="Message goes here."
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/dateView" />
+
+    <Button
+        android:id="@+id/timeButton"
+        android:layout_width="120dp"
+        android:layout_height="65dp"
+        android:layout_marginStart="44dp"
+        android:layout_marginTop="308dp"
+        android:text="Edit Time"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/dayButton"
+        android:layout_width="120dp"
+        android:layout_height="65dp"
+        android:layout_marginEnd="44dp"
+        android:layout_marginTop="308dp"
+        android:text="Edit Day"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 </android.support.constraint.ConstraintLayout>
