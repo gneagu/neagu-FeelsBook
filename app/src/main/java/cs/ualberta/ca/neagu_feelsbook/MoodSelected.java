@@ -77,10 +77,10 @@ public class MoodSelected extends AppCompatActivity {
 
                     newDate = DateModified(years, monthofYear, days, hour, minute);
 
-//                    Intent resultIntent = new Intent(null);
-//                    resultIntent.putExtra("STRING_GOES_HERE", newDate);
-//                    setResult(12, resultIntent);
-//                    finish();
+                    Intent resultIntent = new Intent("DERP");
+                    resultIntent.putExtra("SAVE", newDate);
+                    setResult(12, resultIntent);
+                    finish();
                 }
 
                 finish();

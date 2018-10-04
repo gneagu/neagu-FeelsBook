@@ -39,6 +39,7 @@ import java.io.OutputStreamWriter;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 
 /**
  * Class that creates the main user interface.
@@ -112,9 +113,13 @@ public class MainActivity extends AppCompatActivity {
 
                 Intent intent = new Intent(MainActivity.this, MoodSelected.class);
 
-                intent.putExtra("DERP", "" + i);
+//                intent.putExtra("DERP", "" + i);
 
-                startActivity(intent);
+//                Intent child = new Intent(getPackageName());
+                startActivityForResult(intent, 12);
+
+//                Date date = intent.get
+
 
 //                intent.getExtras();
 
