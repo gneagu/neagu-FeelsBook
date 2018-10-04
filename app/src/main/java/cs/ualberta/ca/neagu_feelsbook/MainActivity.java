@@ -7,10 +7,14 @@
  */
 package cs.ualberta.ca.neagu_feelsbook;
 
+import android.app.Dialog;
+import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -19,6 +23,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.TimePicker;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -33,6 +38,7 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 /**
  * Class that creates the main user interface.
@@ -77,6 +83,8 @@ public class MainActivity extends AppCompatActivity {
 
 
 
+
+
         Log.w("MAIN", "After On Create");
         /*
         Called when an item in the listView is clicked.
@@ -111,8 +119,8 @@ public class MainActivity extends AppCompatActivity {
 //                intent.getExtras();
 
 
-//                String y = intent.getStringExtra(MainActivity.EXTRA_MESSAGE);
-
+//                String y = intent.getStringExtra("DELETE");
+//
 //                Log.w("TRAIL HERE", y);
             }
         });
@@ -148,6 +156,8 @@ public class MainActivity extends AppCompatActivity {
 
         emotionListView.setAdapter(adapter);
     }
+
+
 
     private void loadFromFile() {
         try {
