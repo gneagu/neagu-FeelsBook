@@ -47,9 +47,16 @@ public class MoodSelected extends AppCompatActivity {
         // Get the Intent that started this activity and extract the string
         final Intent intent = getIntent();
         String message = intent.getStringExtra(MainActivity.EXTRA_MESSAGE);
+        final Integer positon = intent.getIntExtra("POSITION", 0);
 
 
-//        intent.putExtra("DERP", "RESULT");
+        intent.putExtra("DERP", "" + positon);
+
+//        CurrentMood derp = getIntent().getSerializableExtra("MyClass");
+
+
+//        intneg
+
 //        setResult(RESULT_OK);
 
         /**
@@ -71,16 +78,21 @@ public class MoodSelected extends AppCompatActivity {
         saveButton.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View v) {
-                Date newDate = new Date();
+//                Date newDate = new Date();
 
                 if (signalDateChange == 1) {
 
-                    newDate = DateModified(years, monthofYear, days, hour, minute);
+                    Date newDate = DateModified();
 
-                    Intent resultIntent = new Intent("DERP");
-                    resultIntent.putExtra("SAVE", newDate);
-                    setResult(12, resultIntent);
-                    finish();
+//                    Intent returnIntent = new Intent();
+//                    returnIntent.putExtra("result",result);
+//                    setResult(Activity.RESULT_OK,returnIntent);
+//                    finish();
+
+                    Intent resultIntent = new Intent();
+                    resultIntent.putExtra("result", 1);
+//                    resultIntent.putExtra("data", 1);
+                    setResult(Activity.RESULT_OK, resultIntent);
                 }
 
                 finish();
@@ -95,7 +107,11 @@ public class MoodSelected extends AppCompatActivity {
             public void onClick(View v) {
 
 //                intent.putExtra("RETURN VALUE", "DELETE");
-                setResult(RESULT_OK);
+
+                Intent resultIntent = new Intent();
+                resultIntent.putExtra("DELETE_POSITION", positon);
+                setResult(2, resultIntent);
+
 
                 finish();
             }
@@ -164,21 +180,20 @@ public class MoodSelected extends AppCompatActivity {
         }
     }
 
-    public static Date  DateModified(Integer newYear, Integer newMonth, Integer newDay,
-            Integer newHour, Integer newMinute) {
+    public static Date DateModified() {
         // In the event this is called, it means that the date has been modified.
 
 
         Calendar cal = Calendar.getInstance();
         Date date = cal.getTime();
 
-        cal.set(Calendar.YEAR, newYear);
-        cal.set(Calendar.MONTH, newMonth);
-        cal.set(Calendar.DATE, newDay);
-        cal.set(Calendar.HOUR_OF_DAY, newHour);
-        cal.set(Calendar.MINUTE, newMinute);
-        cal.set(Calendar.SECOND, 0);
-        cal.set(Calendar.MILLISECOND, 0);
+//        cal.set(Calendar.YEAR, years);
+//        cal.set(Calendar.MONTH, monthofYear);
+//        cal.set(Calendar.DATE, days);
+//        cal.set(Calendar.HOUR_OF_DAY, hour);
+//        cal.set(Calendar.MINUTE, minute);
+//        cal.set(Calendar.SECOND, 0);
+//        cal.set(Calendar.MILLISECOND, 0);
         date = cal.getTime();
 
         return date;

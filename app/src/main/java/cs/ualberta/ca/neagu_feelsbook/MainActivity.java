@@ -7,14 +7,11 @@
  */
 package cs.ualberta.ca.neagu_feelsbook;
 
-import android.app.Dialog;
-import android.app.TimePickerDialog;
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -23,7 +20,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.TimePicker;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -36,6 +32,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
+import java.io.Serializable;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -113,10 +110,13 @@ public class MainActivity extends AppCompatActivity {
 
                 Intent intent = new Intent(MainActivity.this, MoodSelected.class);
 
-//                intent.putExtra("DERP", "" + i);
 
-//                Intent child = new Intent(getPackageName());
-                startActivityForResult(intent, 12);
+
+                intent.putExtra("POSITION", i);
+                intent.putExtra("EMOTION", (Serializable) feelsList.get(i));
+
+                Intent child = new Intent(getPackageName());
+                startActivityForResult(intent, 1);
 
 //                Date date = intent.get
 
@@ -126,9 +126,11 @@ public class MainActivity extends AppCompatActivity {
 
 //                String y = intent.getStringExtra("DELETE");
 //
-//                Log.w("TRAIL HERE", y);
+                Log.w("TRAIL HERE", "SD");
             }
         });
+
+
 
 
 
@@ -149,6 +151,38 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        Log.w("THE IMPORTANT THING", "SDSDDS");
+
+        if (requestCode == 1) {
+            if(resultCode == Activity.RESULT_OK){
+                String result=data.getStringExtra("result");
+
+                Log.w("MAIN RETURN", "HEREH");
+
+            } else if (resultCode == Activity.RESULT_CANCELED) {
+
+                Log.w("SHIT", "SHIT");
+
+                //Write your code if there's no result
+
+            } else if(resultCode == 2) {
+                Integer result=data.getIntExtra("DELETE_POSITION", 0);
+
+                Log.w ("THIS", "" + result);
+
+
+                Log.w("CRAP", "" + feelsList.get(result).toString());
+                feelsList.remove(feelsList.get(result));
+//                feelsList.clear();
+                saveInFile();
+                adapter.notifyDataSetChanged();
+            }
+        }
+    }//onActivityResult
 
     @Override
     protected void onStart() {
