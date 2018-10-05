@@ -8,10 +8,12 @@
 package cs.ualberta.ca.neagu_feelsbook;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.TimePickerDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
@@ -46,7 +48,10 @@ import java.io.Serializable;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Class that creates the main user interface.
@@ -100,6 +105,21 @@ public class MainActivity extends AppCompatActivity {
         displayDate = (TextView) findViewById(R.id.dateView);
         enterMessage = (EditText) findViewById(R.id.messageBox);
 
+        /**
+         * Shows a simple alert message when the message is longer then the limit.
+         *
+         * @author:
+         */
+        final AlertDialog alertDialog = new AlertDialog.Builder(MainActivity.this).create();
+        alertDialog.setTitle("Alert");
+        alertDialog.setMessage("Your message is larger than the allowed character limit!");
+        alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+
         // Specifies the action when an entry in the listView is clicked.
         emotionListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -135,19 +155,29 @@ public class MainActivity extends AppCompatActivity {
                 /* If date has changed either through the date picker or time picker, the new
                  date is created, and then updated on the object.
                  */
-                if (signalDateChange == 1 || signalTimeChange == 1)  {
-                    Date newDate = DateModified(feelsList.get(selectedEmotion).getMoodDate());
 
-                    feelsList.get(selectedEmotion).setMoodDate(newDate);
-                    signalTimeChange = 0;
-                    signalDateChange = 0;
+                if (enterMessage.getText().length() <= 100) {
+                    if (signalDateChange == 1 || signalTimeChange == 1)  {
+                        Date newDate = DateModified(feelsList.get(selectedEmotion).getMoodDate());
+
+                        feelsList.get(selectedEmotion).setMoodDate(newDate);
+                        signalTimeChange = 0;
+                        signalDateChange = 0;
+                    }
+
+                    // The emotions message is updated.
+                    feelsList.get(selectedEmotion).setMessage("" + enterMessage.getText());
+                    atHome = 0;
+                    adapter.notifyDataSetChanged();
+                    viewFlipper.showPrevious();
+                } else {
+                    alertDialog.show();
                 }
 
-                // The emotions message is updated.
-                feelsList.get(selectedEmotion).setMessage("" + enterMessage.getText());
-                atHome = 0;
+                Collections.sort(feelsList);
                 adapter.notifyDataSetChanged();
-                viewFlipper.showPrevious();
+                simpleCounter(feelsList);
+
             }
         });
 
@@ -485,5 +515,25 @@ public class MainActivity extends AppCompatActivity {
             atHome = 0;
             viewFlipper.showPrevious();
         }
+    }
+
+    public void simpleCounter(ArrayList<CurrentMood> listOfEmotions) {
+
+        Map<String, Integer> countedEmotions = new HashMap<>();
+
+        for (CurrentMood emotion : listOfEmotions) {
+            String mood = emotion.getMood();
+
+            Integer count = countedEmotions.get(mood);
+            if (count == null) {
+                count = 0;
+            }
+            countedEmotions.put(mood, count + 1);
+        }
+
+        for (Map.Entry<String, Integer> entry : countedEmotions.entrySet()) {
+            Log.w("" + entry.getKey(), "" + entry.getValue());
+        }
+
     }
 }
