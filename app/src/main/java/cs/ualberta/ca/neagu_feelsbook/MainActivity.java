@@ -46,6 +46,7 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.io.Serializable;
 import java.lang.reflect.Type;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
@@ -238,7 +239,7 @@ public class MainActivity extends AppCompatActivity {
 
             public void onClick(View v) {
                 setResult(RESULT_OK);
-                CurrentMood feel = new HappyMood();
+                CurrentMood feel = new JoyMood();
 
                 feelsList.add(feel);
 
@@ -490,9 +491,12 @@ public class MainActivity extends AppCompatActivity {
         cal.set(Calendar.MILLISECOND, 0);
         date = cal.getTime();
 
-        // The editText box which shows the time is changed to show the modified time.
-        String dateToShow = "" + date;
-        displayDate.setText(dateToShow);
+        // Code from Mincong Huang
+        SimpleDateFormat sdf;
+        sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+        String text = "" + sdf.format(date);
+
+        displayDate.setText(text);
 
         return date;
     }
@@ -507,11 +511,15 @@ public class MainActivity extends AppCompatActivity {
     public void selectedEmotion(Integer selectedEmotion) {
         viewFlipper.showNext(); //Flips the view to the other window.
 
-        String dateToShow = "" + feelsList.get(selectedEmotion).getMoodDate(); //Get the date
         String messageToShow = feelsList.get(selectedEmotion).getMessage(); //Get the message
 
+        // Code from Mincong Huang
+        SimpleDateFormat sdf;
+        sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+        String text = sdf.format(feelsList.get(selectedEmotion).getMoodDate());
+
         enterMessage.setText(messageToShow);
-        displayDate.setText(dateToShow);
+        displayDate.setText(text);
     }
 
 
@@ -529,8 +537,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     * This function receives the list of
+     * This function receives the list of emotions, extracts the name, and then adds that name
+     * to another list which uses the name as a keep to keep track of occurrences of that list in
+     * the emotionList
      *
+     * @attribution: techiedelight.com
      * @param listOfEmotions
      */
     public void simpleCounter(ArrayList<CurrentMood> listOfEmotions) {
@@ -538,9 +549,11 @@ public class MainActivity extends AppCompatActivity {
         String toDisplay = new String();
         Map<String, Integer> countedEmotions = new HashMap<>();
 
+        //Iterates through list of emotions, extracts name, and increments ocurences in countedEmotions
         for (CurrentMood emotion : listOfEmotions) {
             String mood = emotion.getMood();
 
+            //If value does not exist for key, creates value, otherwise increments it.
             Integer count = countedEmotions.get(mood);
             if (count == null) {
                 count = 0;
@@ -548,10 +561,12 @@ public class MainActivity extends AppCompatActivity {
             countedEmotions.put(mood, count + 1);
         }
 
+        //Iterates through countedEmotions and adds counts to a string.
         for (Map.Entry<String, Integer> entry : countedEmotions.entrySet()) {
             toDisplay += entry.getKey() + ": " + entry.getValue() + " ";
         }
 
+        //Updates textView on screen with the counters.
         counterScreen.setText(toDisplay);
     }
 }

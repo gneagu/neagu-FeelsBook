@@ -8,6 +8,8 @@ package cs.ualberta.ca.neagu_feelsbook;
 
 import android.support.annotation.NonNull;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -28,7 +30,7 @@ public class CurrentMood implements MoodInterface,Comparable<CurrentMood>  {
     CurrentMood(String mood){
         this.mood = mood;
         this.moodDate = new Date();
-        this.message = "Default Message";
+        this.message = "";
     }
 
     /**
@@ -94,23 +96,47 @@ public class CurrentMood implements MoodInterface,Comparable<CurrentMood>  {
         if (message.length() <= MAX_CHAR) {
             this.message = message;
         } else {
-            this.message = "Default Message";
+            this.message = "";
         }
     }
 
-    // Need to override toString class because otherwise this defaults to
-    // the items toString class which just return the id of the element as a string
+    /**
+     * Need to override toString class because otherwise this defaults to
+     * the items toString class which just return the id of the element as a string.
+     * This function returns a string up to 50 characters long that includes the emotion type,
+     * the date, and part of the message.
+     *
+     * @attribution: Mincong Huang
+     * @return: String
+     */
     @Override
     public String toString(){
         String returnString = new String();
 
         returnString = this.getMood();
-        returnString += " " + this.getMoodDate();
+
+        // Code from Mincong Huang
+        SimpleDateFormat sdf;
+        sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+        String text = sdf.format(this.getMoodDate());
+
+        returnString += " " + text + " " + this.getMessage();
+
+        // This makes sure that no more than 50 characters are shown.
+        if (returnString.length() > 50) {
+            returnString = returnString.substring(0, 49);
+        }
 
         return returnString;
     }
 
-//    @Override
+    /**
+     * This function allows for the comparison of date objects.
+     *
+     * @attribution Phrogz
+     * @param o
+     * @return
+     */
     public int compareTo(@NonNull CurrentMood o) {
         return getMoodDate().compareTo(o.getMoodDate());
     }

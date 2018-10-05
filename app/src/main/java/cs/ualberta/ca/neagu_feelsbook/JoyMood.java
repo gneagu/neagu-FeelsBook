@@ -8,15 +8,15 @@ package cs.ualberta.ca.neagu_feelsbook;
 
 import java.util.Date;
 
-public class HappyMood extends CurrentMood {
+public class JoyMood extends CurrentMood {
 
     /**
      * Constructor that takes a string as ana argument and creates a HappyMood
      *
      * @Argument: string
      */
-    HappyMood() {
-        super("HAPPY MOOD");
+    JoyMood() {
+        super("JOY MOOD");
     }
 
     /**
@@ -26,6 +26,6 @@ public class HappyMood extends CurrentMood {
      * @param date
      * @param message
      */
-    HappyMood(String mood, Date date, String message) { super("SAD MOOD", date, message); }
+    JoyMood(String mood, Date date, String message) { super("JOY MOOD", date, message); }
 
 }
