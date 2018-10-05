@@ -111,8 +111,9 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        /**
-         * When day button is pushed.
+        /*
+         * When day button is pushed this triggers the date picker to appear and allows the user
+         * to select a date.
          */
         dayButton.setOnClickListener(new View.OnClickListener() {
 
@@ -124,13 +125,16 @@ public class MainActivity extends AppCompatActivity {
 
         });
 
-        /**
-         * When save button is pushed.
+        /*
+         * When save button is pushed, if the date has been modified, then it is updated, and the
+         * object is set with the new date. The emotion object also has its message updated.
          */
         saveButton.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View v) {
-
+                /* If date has changed either through the date picker or time picker, the new
+                 date is created, and then updated on the object.
+                 */
                 if (signalDateChange == 1 || signalTimeChange == 1)  {
                     Date newDate = DateModified(feelsList.get(selectedEmotion).getMoodDate());
 
@@ -139,17 +143,16 @@ public class MainActivity extends AppCompatActivity {
                     signalDateChange = 0;
                 }
 
+                // The emotions message is updated.
                 feelsList.get(selectedEmotion).setMessage("" + enterMessage.getText());
-
                 atHome = 0;
-
                 adapter.notifyDataSetChanged();
                 viewFlipper.showPrevious();
             }
         });
 
-        /**
-         * When day button is pushed.
+        /*
+         * When delete button is pushed the emotion is deleted from the emotion list.
          */
         deleteButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -162,8 +165,8 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        /**
-         * When time button is pushed.
+        /*
+         * When time button is pushed, the time picker is triggered and appears.
          */
         timeButton.setOnClickListener(new View.OnClickListener() {
 
@@ -175,9 +178,11 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        // When the sad Button is clicked, this listener adds a sadMood() object to the feelList,
-        // calls the saveInFile function to save the change to the file, and notifies the adapter that
-        // the list has changed.
+        /*
+         * When the sad Button is clicked, this listener adds a sadMood() object to the feelList,
+         * calls the saveInFile function to save the change to the file, and notifies the adapter that
+         * the list has changed.
+         */
         sadButton.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View v) {
@@ -188,7 +193,6 @@ public class MainActivity extends AppCompatActivity {
 
                 saveInFile();
                 adapter.notifyDataSetChanged();
-
             }
         });
     }

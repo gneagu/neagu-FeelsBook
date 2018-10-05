@@ -6,6 +6,6 @@ public class SadMood extends CurrentMood {
 
     SadMood() { super(); }
 
-    SadMood(Date date, String message) { super(date, message); }
+//    SadMood(Date date) { super(date); }
 
 }
