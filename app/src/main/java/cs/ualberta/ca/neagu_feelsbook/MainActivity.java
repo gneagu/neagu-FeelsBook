@@ -58,13 +58,15 @@ public class MainActivity extends AppCompatActivity {
     private ListView emotionListView;
     private ViewFlipper viewFlipper;
     private EditText enterMessage;
-    private TextView displayDate;
+    private static TextView displayDate;
 
     static Integer days;
     static Integer years;
     static Integer monthofYear;
     static Integer signalDateChange = 0;
+    static Integer signalTimeChange = 0;
     static Integer selectedEmotion= 0;
+    static Integer atHome = 0;
     static Integer hour;
     static Integer minute;
     static String moodType;
@@ -90,6 +92,7 @@ public class MainActivity extends AppCompatActivity {
         emotionListView = (ListView) findViewById(R.id.emotionListView);
         viewFlipper = (ViewFlipper) findViewById(R.id.viewFlipper);
 
+        // These are the buttons from the second "view" that are also in this layout.
         Button timeButton = (Button) findViewById(R.id.timeButton);
         Button dayButton = (Button) findViewById(R.id.dayButton);
         Button saveButton = (Button) findViewById(R.id.saveButton);
@@ -97,11 +100,13 @@ public class MainActivity extends AppCompatActivity {
         displayDate = (TextView) findViewById(R.id.dateView);
         enterMessage = (EditText) findViewById(R.id.messageBox);
 
+        // Specifies the action when an entry in the listView is clicked.
         emotionListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 selectedEmotion = i;
                 selectedEmotion(i);
+                atHome = 1;
 
             }
         });
@@ -126,13 +131,19 @@ public class MainActivity extends AppCompatActivity {
 
             public void onClick(View v) {
 
-                if (signalDateChange == 0) {
+                if (signalDateChange == 1 || signalTimeChange == 1)  {
+                    Date newDate = DateModified(feelsList.get(selectedEmotion).getMoodDate());
 
-                    Date newDate = DateModified();
-                    Log.w("AT THE SAVE", "" + newDate.toString());
-
+                    feelsList.get(selectedEmotion).setMoodDate(newDate);
+                    signalTimeChange = 0;
+                    signalDateChange = 0;
                 }
 
+                feelsList.get(selectedEmotion).setMessage("" + enterMessage.getText());
+
+                atHome = 0;
+
+                adapter.notifyDataSetChanged();
                 viewFlipper.showPrevious();
             }
         });
@@ -145,6 +156,7 @@ public class MainActivity extends AppCompatActivity {
                 feelsList.remove(feelsList.get(selectedEmotion));
                 saveInFile();
                 adapter.notifyDataSetChanged();
+                atHome = 0;
 
                 viewFlipper.showPrevious();
             }
@@ -181,18 +193,26 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+
+    /**
+     * This function is run when the program is created. It calls the loadFromFile function to
+     * read the collection of moods from the save file, and then binds them to an adapter.
+     */
     @Override
     protected void onStart() {
         super.onStart();
 
         loadFromFile();
-
         adapter = new ArrayAdapter<CurrentMood>(this,
                 R.layout.list_item, feelsList);
-
         emotionListView.setAdapter(adapter);
     }
 
+    /**
+     * @Author: Rosevear (Cmput 301 TA)
+     *
+     * This functions loads a collection of CurrentMood objects from a save file.
+     */
     private void loadFromFile() {
         try {
             FileInputStream fis = openFileInput(FILENAME);
@@ -211,7 +231,11 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-
+    /**
+     * @Author: Rosevear (Cmput 301 TA)
+     *
+     * This function saves the collection of CurrentMood objects to a save file.
+     */
     private void saveInFile() {
         try {
             FileOutputStream fos = openFileOutput(FILENAME,
@@ -234,6 +258,12 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * @author: GOOGLE
+     *
+     * This function specifies the behaviour of the time picker. On create, it modifies
+     * variables (hour, and minute).
+     */
     public static class TimePickerFragment extends DialogFragment
             implements TimePickerDialog.OnTimeSetListener {
 
@@ -249,14 +279,22 @@ public class MainActivity extends AppCompatActivity {
                     DateFormat.is24HourFormat(getActivity()));
         }
 
+        // Once the time is specified, the variables mentioned above are changed.
         public void onTimeSet(TimePicker view, int hourOfDay, int minuteOfDay) {
             hour = hourOfDay;
             minute = minuteOfDay;
-            signalDateChange = 1;
+
+            signalTimeChange = 1;
+            Date throwAway = DateModified(new Date());
         }
     }
 
-
+    /**
+     * @author: GOOGLE
+     *
+     * This function specifies the behaviour of the date picker. On create, it modifies
+     * variables (year, month, and day).
+     */
     public static class DatePickerFragment extends DialogFragment
             implements DatePickerDialog.OnDateSetListener {
 
@@ -272,73 +310,86 @@ public class MainActivity extends AppCompatActivity {
             return new DatePickerDialog(getActivity(), this, year, month, day);
         }
 
+        // Once the date is selected, the variables mentioned above are changed.
         public void onDateSet(DatePicker view, int year, int month, int day) {
-//            Log.w("AT THE PICKER", "" + year + month + day);
-
             monthofYear = month;
-
             years = year;
             days = day;
+
             signalDateChange = 1;
+            Date throwAway = DateModified(new Date());
 
         }
 
     }
 
-        public static Date DateModified() {
-            // In the event this is called, it means that the date has been modified.
-//            Integer a = 2018;
-//            Integer b = 8;
-//            Integer c = 11;
-//            Integer d = 10;
-//            Integer e = 10;
+    /**
+     * This function takes a date parameter and then checks to see which set of date variables have
+     * been changed above. The first set (year, month, and day) are modified by the date selector,
+     * and the second (hour, minute) are modified by the time picker. The date is modified with the
+     * modified variables, and is then returned.
+     *
+     * @param date
+     * @return date
+     */
+    public static  Date DateModified(Date date) {
 
+        // In the event this is called, it means that the date has been modified.
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(date);
 
-            Calendar cal = Calendar.getInstance();
-            Date date1 = new Date();
-            Date date = new Date();
-
+        // These variables are modified by the date picker.
+        if (signalDateChange == 1) {
             cal.set(Calendar.YEAR, years);
             cal.set(Calendar.MONTH, monthofYear);
             cal.set(Calendar.DATE, days);
+        }
+
+        // These variables are modified by the time picker.
+        if (signalTimeChange == 1) {
             cal.set(Calendar.HOUR_OF_DAY, hour);
             cal.set(Calendar.MINUTE, minute);
-            signalDateChange = 1;
-
-//            cal.set(Calendar.YEAR, a);
-//            cal.set(Calendar.MONTH, b);
-//            cal.set(Calendar.DATE, c);
-//            cal.set(Calendar.HOUR_OF_DAY, d);
-//            cal.set(Calendar.MINUTE, e);
-
-            cal.set(Calendar.SECOND, 0);
-            cal.set(Calendar.MILLISECOND, 0);
-            date = cal.getTime();
-
-            Log.w("At save", "" + date.toString());
-            Log.w("AFTER", "" + date1.toString());
-
-            return date;
         }
 
+        cal.set(Calendar.SECOND, 0);
+        cal.set(Calendar.MILLISECOND, 0);
+        date = cal.getTime();
 
-        public void selectedEmotion(Integer selectedEmotion) {
-            viewFlipper.showNext();
-            String dateToShow;
-            dateToShow = "" + feelsList.get(selectedEmotion).getMoodDate();
-            String messageToShow = feelsList.get(selectedEmotion).getMessage();
+        // The editText box which shows the time is changed to show the modified time.
+        String dateToShow = "" + date;
+        displayDate.setText(dateToShow);
 
-            enterMessage.setText(messageToShow);
-            displayDate.setText(dateToShow);
+        return date;
+    }
 
-        }
+    /**
+     * This function takes the position of the emotion in the list of emotions, and then takes
+     * the date from it, and displays it in the textView "editDate", and displays the message
+     * in the editText "enterMessage".
+     *
+     * @param selectedEmotion
+     */
+    public void selectedEmotion(Integer selectedEmotion) {
+        viewFlipper.showNext(); //Flips the view to the other window.
 
+        String dateToShow = "" + feelsList.get(selectedEmotion).getMoodDate(); //Get the date
+        String messageToShow = feelsList.get(selectedEmotion).getMessage(); //Get the message
+
+        enterMessage.setText(messageToShow);
+        displayDate.setText(dateToShow);
+    }
+
+
+    /**
+     * This function modifies the back button behaviour. Since the views are shown on the same
+     * interface, pressing the back button would exit out of the program, so behaviour needs to
+     * be modified to change views instead.
+     */
     @Override
-    public void onBackPressed()
-    {
-
-
-        viewFlipper.showPrevious();
-
+    public void onBackPressed() {
+        if (atHome != 0) {
+            atHome = 0;
+            viewFlipper.showPrevious();
+        }
     }
 }

@@ -51,16 +51,16 @@ public class CurrentMood implements MoodInterface{
         }
     }
 
-//    // Need to override toString class because otherwise this defaults to
-//    // the items toString class which just return the id of the element as a string
-//    @Override
-//    public String toString(){
-//        String returnString = new String();
-//
-//        returnString = this.getMood();
-//        returnString += this.getMoodDate();
-//
-//        return returnString;
-//    }
+    // Need to override toString class because otherwise this defaults to
+    // the items toString class which just return the id of the element as a string
+    @Override
+    public String toString(){
+        String returnString = new String();
+
+        returnString = this.getMood();
+        returnString += this.getMoodDate();
+
+        return returnString;
+    }
 
 }
