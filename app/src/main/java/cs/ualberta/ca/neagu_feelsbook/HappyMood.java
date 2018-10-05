@@ -12,22 +12,8 @@ public class HappyMood extends CurrentMood {
         this.mood = "happy_mood";
     }
 
-    HappyMood(Date moodDate) {
-        super(moodDate);
+    HappyMood(Date moodDate, String message) {
+        super(moodDate, message);
         this.mood = "happy_mood";
     }
-
-    public Date getMoodDate() {
-        return this.moodDate;
-    }
-
-    public void setMoodDate(Date moodDate) {
-        this.moodDate = moodDate;
-    }
-
-    public String getMoodType() {
-        return this.mood;
-    }
-
-    public void setMoodType() { this.mood = "happy_mood"; }
 }
