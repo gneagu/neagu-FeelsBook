@@ -53,7 +53,7 @@ import java.util.Date;
  */
 public class MainActivity extends AppCompatActivity {
 
-    private static final String FILENAME = "file.sav";
+    private static final String FILENAME = "files.sav";
     private EditText counterText;
     private ListView emotionListView;
     private ViewFlipper viewFlipper;
@@ -188,6 +188,24 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 setResult(RESULT_OK);
                 CurrentMood feel = new SadMood();
+
+                feelsList.add(feel);
+
+                saveInFile();
+                adapter.notifyDataSetChanged();
+            }
+        });
+
+        /*
+         * When the sad Button is clicked, this listener adds a sadMood() object to the feelList,
+         * calls the saveInFile function to save the change to the file, and notifies the adapter that
+         * the list has changed.
+         */
+        happyButton.setOnClickListener(new View.OnClickListener() {
+
+            public void onClick(View v) {
+                setResult(RESULT_OK);
+                CurrentMood feel = new HappyMood();
 
                 feelsList.add(feel);
 

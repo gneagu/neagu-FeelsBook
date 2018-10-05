@@ -9,14 +9,14 @@ public class CurrentMood implements MoodInterface{
     private String message;
     private static final Integer MAX_CHAR = 100;
 
-    CurrentMood(){
-        this.mood = "Sad Mood ";
+    CurrentMood(String mood){
+        this.mood = mood;
         this.moodDate = new Date();
         this.message = "Default Message";
     }
 
-    CurrentMood(Date date, String message){
-        this.mood = "Sad Mood ";
+    CurrentMood(String mood, Date date, String message){
+        this.mood = mood;
         this.moodDate = date;
         this.message = message;
     }

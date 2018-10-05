@@ -5,8 +5,8 @@ import java.util.Date;
 public class FearMood extends CurrentMood {
 
 
-    FearMood() { super(); }
+    FearMood() { super("FEAR MOOD"); }
 
-//    FearMood(Date date, String message) { super(date); }
+    FearMood(String mood, Date date, String message) { super("SAD MOOD", date, message); }
 
 }
