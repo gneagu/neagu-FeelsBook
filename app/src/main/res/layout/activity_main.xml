@@ -1,99 +1,197 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
 
-    <Button
-        android:id="@+id/loveButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:text="LOVE"
-        app:layout_constraintBaseline_toBaselineOf="@+id/surpriseButton"
-        app:layout_constraintStart_toStartOf="parent" />
 
-    <Button
-        android:id="@+id/sadButton"
-        android:layout_width="91dp"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:text="SAD"
-        app:layout_constraintBaseline_toBaselineOf="@+id/angryButton"
-        app:layout_constraintEnd_toStartOf="@+id/angryButton"
-        app:layout_constraintHorizontal_bias="0.507"
-        app:layout_constraintStart_toEndOf="@+id/happyButton" />
+    <ViewFlipper
+        android:id="@+id/viewFlipper"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_margin="6dp">
 
-    <Button
-        android:id="@+id/happyButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:text="HAPPY"
-        app:layout_constraintBaseline_toBaselineOf="@+id/sadButton"
-        app:layout_constraintStart_toStartOf="parent" />
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-    <Button
-        android:id="@+id/angryButton"
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:layout_marginBottom="10dp"
-        android:layout_marginEnd="16dp"
-        android:text="ANGRY"
-        app:layout_constraintBottom_toTopOf="@+id/fearButton"
-        app:layout_constraintEnd_toEndOf="parent" />
 
-    <Button
-        android:id="@+id/surpriseButton"
-        android:layout_width="91dp"
-        android:layout_height="46dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:text="SURPRISE"
-        app:layout_constraintBaseline_toBaselineOf="@+id/fearButton"
-        app:layout_constraintEnd_toStartOf="@+id/fearButton"
-        app:layout_constraintHorizontal_bias="0.506"
-        app:layout_constraintStart_toEndOf="@+id/loveButton" />
+            <Button
+                android:id="@+id/loveButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:text="LOVE"
+                app:layout_constraintBaseline_toBaselineOf="@+id/surpriseButton"
+                app:layout_constraintStart_toStartOf="parent" />
 
-    <Button
-        android:id="@+id/fearButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="24dp"
-        android:layout_marginEnd="16dp"
-        android:text="FEAR"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
 
-    <TextView
-        android:id="@+id/ButtonPrompt"
-        android:layout_width="389dp"
-        android:layout_height="21dp"
-        android:layout_marginBottom="8dp"
-        android:text="Click a button from below to add a Feel"
-        android:textAlignment="center"
-        app:layout_constraintBottom_toTopOf="@+id/sadButton"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.4"
-        app:layout_constraintStart_toStartOf="parent" />
+            <Button
+                android:id="@+id/sadButton"
+                android:layout_width="91dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
+                android:text="SAD"
+                app:layout_constraintBaseline_toBaselineOf="@+id/angryButton"
+                app:layout_constraintEnd_toStartOf="@+id/angryButton"
+                app:layout_constraintHorizontal_bias="0.507"
+                app:layout_constraintStart_toEndOf="@+id/happyButton" />
 
-    <ListView
-        android:id="@+id/emotionListView"
-        android:layout_width="wrap_content"
-        android:layout_height="352dp"
-        app:layout_constraintBottom_toTopOf="@+id/ButtonPrompt"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+            <Button
+                android:id="@+id/happyButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:text="JOY"
+                app:layout_constraintBaseline_toBaselineOf="@+id/sadButton"
+                app:layout_constraintStart_toStartOf="parent" />
 
-    <TextView
-        android:id="@+id/count"
-        android:layout_width="380dp"
-        android:layout_height="19dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+            <Button
+                android:id="@+id/angryButton"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_marginBottom="10dp"
+                android:layout_marginEnd="16dp"
+                android:text="ANGRY"
+                app:layout_constraintBottom_toTopOf="@+id/fearButton"
+                app:layout_constraintEnd_toEndOf="parent" />
 
-</android.support.constraint.ConstraintLayout>
+            <Button
+                android:id="@+id/surpriseButton"
+                android:layout_width="91dp"
+                android:layout_height="46dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
+                android:text="SURPRISE"
+                app:layout_constraintBaseline_toBaselineOf="@+id/fearButton"
+                app:layout_constraintEnd_toStartOf="@+id/fearButton"
+                app:layout_constraintHorizontal_bias="0.506"
+                app:layout_constraintStart_toEndOf="@+id/loveButton" />
+
+            <Button
+                android:id="@+id/fearButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="24dp"
+                android:layout_marginEnd="16dp"
+                android:text="FEAR"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+            <TextView
+                android:id="@+id/ButtonPrompt"
+                android:layout_width="389dp"
+                android:layout_height="21dp"
+                android:layout_marginBottom="8dp"
+                android:text="Click a button from below to add a Feel"
+                android:textAlignment="center"
+                app:layout_constraintBottom_toTopOf="@+id/sadButton"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.4"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <TextView
+                android:id="@+id/count"
+                android:layout_width="380dp"
+                android:layout_height="19dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <ListView
+                android:id="@+id/emotionListView"
+                android:layout_width="wrap_content"
+                android:layout_height="352dp"
+                app:layout_constraintBottom_toTopOf="@+id/ButtonPrompt"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <TextView
+                android:id="@+id/Counter"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="TextView"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </android.support.constraint.ConstraintLayout>
+
+
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <Button
+                android:id="@+id/saveButton"
+                android:layout_width="120dp"
+                android:layout_height="65dp"
+                android:layout_marginStart="44dp"
+                android:layout_marginTop="412dp"
+                android:text="Save Emotion"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <Button
+                android:id="@+id/deleteButton"
+                android:layout_width="120dp"
+                android:layout_height="65dp"
+                android:layout_marginEnd="44dp"
+                android:layout_marginTop="412dp"
+                android:text="Delete"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/dateView"
+                android:layout_width="280dp"
+                android:layout_height="48dp"
+                android:layout_marginTop="76dp"
+                android:text="TextView"
+                android:textAlignment="center"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <EditText
+                android:id="@+id/messageBox"
+                android:layout_width="280dp"
+                android:layout_height="89dp"
+                android:layout_marginTop="48dp"
+                android:text="Message goes here."
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/dateView" />
+
+            <Button
+                android:id="@+id/timeButton"
+                android:layout_width="120dp"
+                android:layout_height="65dp"
+                android:layout_marginStart="44dp"
+                android:layout_marginTop="308dp"
+                android:text="Edit Time"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <Button
+                android:id="@+id/dayButton"
+                android:layout_width="120dp"
+                android:layout_height="65dp"
+                android:layout_marginEnd="44dp"
+                android:layout_marginTop="308dp"
+                android:text="Edit Day"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+
+        </android.support.constraint.ConstraintLayout>
+    </ViewFlipper>
+
+
+</LinearLayout>
