@@ -53,7 +53,7 @@ import java.util.Date;
  */
 public class MainActivity extends AppCompatActivity {
 
-    private static final String FILENAME = "files.sav";
+    private static final String FILENAME = "fileasds.sav";
     private EditText counterText;
     private ListView emotionListView;
     private ViewFlipper viewFlipper;
@@ -111,7 +111,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        /*
+        /**
          * When day button is pushed this triggers the date picker to appear and allows the user
          * to select a date.
          */
@@ -125,7 +125,7 @@ public class MainActivity extends AppCompatActivity {
 
         });
 
-        /*
+        /**
          * When save button is pushed, if the date has been modified, then it is updated, and the
          * object is set with the new date. The emotion object also has its message updated.
          */
@@ -151,7 +151,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        /*
+        /**
          * When delete button is pushed the emotion is deleted from the emotion list.
          */
         deleteButton.setOnClickListener(new View.OnClickListener() {
@@ -165,7 +165,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        /*
+        /**
          * When time button is pushed, the time picker is triggered and appears.
          */
         timeButton.setOnClickListener(new View.OnClickListener() {
@@ -178,7 +178,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        /*
+        /**
          * When the sad Button is clicked, this listener adds a sadMood() object to the feelList,
          * calls the saveInFile function to save the change to the file, and notifies the adapter that
          * the list has changed.
@@ -196,7 +196,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        /*
+        /**
          * When the happy Button is clicked, this listener adds a sadMood() object to the feelList,
          * calls the saveInFile function to save the change to the file, and notifies the adapter that
          * the list has changed.
@@ -214,7 +214,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        /*
+        /**
          * When the fear Button is clicked, this listener adds a sadMood() object to the feelList,
          * calls the saveInFile function to save the change to the file, and notifies the adapter that
          * the list has changed.
@@ -232,7 +232,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        /*
+        /**
          * When the love Button is clicked, this listener adds a sadMood() object to the feelList,
          * calls the saveInFile function to save the change to the file, and notifies the adapter that
          * the list has changed.
@@ -250,7 +250,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        /*
+        /**
          * When the surprise Button is clicked, this listener adds a sadMood() object to the feelList,
          * calls the saveInFile function to save the change to the file, and notifies the adapter that
          * the list has changed.
@@ -268,7 +268,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        /*
+        /**
          * When the angry Button is clicked, this listener adds a sadMood() object to the feelList,
          * calls the saveInFile function to save the change to the file, and notifies the adapter that
          * the list has changed.
