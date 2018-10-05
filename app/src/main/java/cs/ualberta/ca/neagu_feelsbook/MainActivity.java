@@ -197,7 +197,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         /*
-         * When the sad Button is clicked, this listener adds a sadMood() object to the feelList,
+         * When the happy Button is clicked, this listener adds a sadMood() object to the feelList,
          * calls the saveInFile function to save the change to the file, and notifies the adapter that
          * the list has changed.
          */
@@ -206,6 +206,78 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 setResult(RESULT_OK);
                 CurrentMood feel = new HappyMood();
+
+                feelsList.add(feel);
+
+                saveInFile();
+                adapter.notifyDataSetChanged();
+            }
+        });
+
+        /*
+         * When the fear Button is clicked, this listener adds a sadMood() object to the feelList,
+         * calls the saveInFile function to save the change to the file, and notifies the adapter that
+         * the list has changed.
+         */
+        fearButton.setOnClickListener(new View.OnClickListener() {
+
+            public void onClick(View v) {
+                setResult(RESULT_OK);
+                CurrentMood feel = new FearMood();
+
+                feelsList.add(feel);
+
+                saveInFile();
+                adapter.notifyDataSetChanged();
+            }
+        });
+
+        /*
+         * When the love Button is clicked, this listener adds a sadMood() object to the feelList,
+         * calls the saveInFile function to save the change to the file, and notifies the adapter that
+         * the list has changed.
+         */
+        loveButton.setOnClickListener(new View.OnClickListener() {
+
+            public void onClick(View v) {
+                setResult(RESULT_OK);
+                CurrentMood feel = new LoveMood();
+
+                feelsList.add(feel);
+
+                saveInFile();
+                adapter.notifyDataSetChanged();
+            }
+        });
+
+        /*
+         * When the surprise Button is clicked, this listener adds a sadMood() object to the feelList,
+         * calls the saveInFile function to save the change to the file, and notifies the adapter that
+         * the list has changed.
+         */
+        surpriseButton.setOnClickListener(new View.OnClickListener() {
+
+            public void onClick(View v) {
+                setResult(RESULT_OK);
+                CurrentMood feel = new SurpriseMood();
+
+                feelsList.add(feel);
+
+                saveInFile();
+                adapter.notifyDataSetChanged();
+            }
+        });
+
+        /*
+         * When the angry Button is clicked, this listener adds a sadMood() object to the feelList,
+         * calls the saveInFile function to save the change to the file, and notifies the adapter that
+         * the list has changed.
+         */
+        angerButton.setOnClickListener(new View.OnClickListener() {
+
+            public void onClick(View v) {
+                setResult(RESULT_OK);
+                CurrentMood feel = new AngryMood();
 
                 feelsList.add(feel);
 
