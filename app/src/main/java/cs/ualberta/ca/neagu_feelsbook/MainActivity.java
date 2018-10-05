@@ -528,6 +528,11 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * This function receives the list of
+     *
+     * @param listOfEmotions
+     */
     public void simpleCounter(ArrayList<CurrentMood> listOfEmotions) {
 
         String toDisplay = new String();
