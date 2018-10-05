@@ -1,0 +1,20 @@
+{
+    "logs": [
+        {
+            "outputFile": "/afs/ualberta.ca/home/n/e/neagu/CMPUT301Fall2018/neagu-FeelsBook/app/build/intermediates/incremental/mergeDebugResources/merged.dir/values-v25/values-v25.xml",
+            "map": [
+                {
+                    "source": "/afs/ualberta.ca/home/n/e/neagu/.gradle/caches/transforms-1/files-1.1/appcompat-v7-26.0.0.aar/0834bb0840d9c992ce52c1e1543fb9fe/res/values-v25/values-v25.xml",
+                    "from": {
+                        "startLines": "2,3,4,6",
+                        "startColumns": "4,4,4,4",
+                        "startOffsets": "55,126,209,308",
+                        "endLines": "2,3,5,7",
+                        "endColumns": "70,82,12,12",
+                        "endOffsets": "121,204,303,414"
+                    }
+                }
+            ]
+        }
+    ]
+}

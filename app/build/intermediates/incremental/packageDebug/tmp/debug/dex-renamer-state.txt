@@ -1,0 +1,4 @@
+#Fri Oct 05 13:38:57 MDT 2018
+base.0=/afs/ualberta.ca/home/n/e/neagu/CMPUT301Fall2018/neagu-FeelsBook/app/build/intermediates/transforms/dexMerger/debug/0
+path.0=classes.dex
+renamed.0=classes.dex

@@ -1,0 +1,7 @@
+#Internal package file, do not edit.
+#Thu Oct 04 10:15:33 MDT 2018
+0.baseType=DIRECTORY
+0.base=/afs/ualberta.ca/home/n/e/neagu/CMPUT301Fall2018/neagu-FeelsBook/app/build/intermediates/transforms/dexMerger/debug/0
+0.path=classes.dex
+0.set=DEX
+count=1
