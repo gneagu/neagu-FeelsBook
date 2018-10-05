@@ -64,6 +64,7 @@ public class MainActivity extends AppCompatActivity {
     private ViewFlipper viewFlipper;
     private EditText enterMessage;
     private static TextView displayDate;
+    private static TextView counterScreen;
 
     static Integer days;
     static Integer years;
@@ -96,6 +97,7 @@ public class MainActivity extends AppCompatActivity {
         final TextView counterText = (TextView) findViewById(R.id.count);
         emotionListView = (ListView) findViewById(R.id.emotionListView);
         viewFlipper = (ViewFlipper) findViewById(R.id.viewFlipper);
+        counterScreen = (TextView) findViewById(R.id.Counter);
 
         // These are the buttons from the second "view" that are also in this layout.
         Button timeButton = (Button) findViewById(R.id.timeButton);
@@ -175,10 +177,9 @@ public class MainActivity extends AppCompatActivity {
                 }
 
                 Collections.sort(feelsList);
-                adapter.notifyDataSetChanged();
                 simpleCounter(feelsList);
-
-            }
+                adapter.notifyDataSetChanged();
+                }
         });
 
         /**
@@ -188,6 +189,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 feelsList.remove(feelsList.get(selectedEmotion));
                 saveInFile();
+                simpleCounter(feelsList);
                 adapter.notifyDataSetChanged();
                 atHome = 0;
 
@@ -223,6 +225,7 @@ public class MainActivity extends AppCompatActivity {
 
                 saveInFile();
                 adapter.notifyDataSetChanged();
+                simpleCounter(feelsList);
             }
         });
 
@@ -241,6 +244,7 @@ public class MainActivity extends AppCompatActivity {
 
                 saveInFile();
                 adapter.notifyDataSetChanged();
+                simpleCounter(feelsList);
             }
         });
 
@@ -259,6 +263,7 @@ public class MainActivity extends AppCompatActivity {
 
                 saveInFile();
                 adapter.notifyDataSetChanged();
+                simpleCounter(feelsList);
             }
         });
 
@@ -277,6 +282,7 @@ public class MainActivity extends AppCompatActivity {
 
                 saveInFile();
                 adapter.notifyDataSetChanged();
+                simpleCounter(feelsList);
             }
         });
 
@@ -295,6 +301,7 @@ public class MainActivity extends AppCompatActivity {
 
                 saveInFile();
                 adapter.notifyDataSetChanged();
+                simpleCounter(feelsList);
             }
         });
 
@@ -313,6 +320,7 @@ public class MainActivity extends AppCompatActivity {
 
                 saveInFile();
                 adapter.notifyDataSetChanged();
+                simpleCounter(feelsList);
             }
         });
     }
@@ -346,6 +354,9 @@ public class MainActivity extends AppCompatActivity {
             Type listType = new TypeToken<ArrayList<CurrentMood>>(){}.getType();
 
             feelsList = gson.fromJson(in, listType);
+
+            Collections.sort(feelsList);
+            simpleCounter(feelsList);
 
         } catch (FileNotFoundException e) {
             feelsList = new ArrayList<CurrentMood>();
@@ -519,6 +530,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void simpleCounter(ArrayList<CurrentMood> listOfEmotions) {
 
+        String toDisplay = new String();
         Map<String, Integer> countedEmotions = new HashMap<>();
 
         for (CurrentMood emotion : listOfEmotions) {
@@ -532,8 +544,9 @@ public class MainActivity extends AppCompatActivity {
         }
 
         for (Map.Entry<String, Integer> entry : countedEmotions.entrySet()) {
-            Log.w("" + entry.getKey(), "" + entry.getValue());
+            toDisplay += entry.getKey() + ": " + entry.getValue() + " ";
         }
 
+        counterScreen.setText(toDisplay);
     }
 }
